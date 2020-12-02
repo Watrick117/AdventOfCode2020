@@ -26,7 +26,7 @@ for i in range(1, len(data)+1):
             break
             
         if int(data[i-1]) + int(data[j-1]) == 2020:
-            data_i_plus_data_j = int(data[i-1]) * int(data[j-1])
+
             print('The two expenses that add up to 2020. Are %s and %s.' % (data[i-1],data[j-1]))
             print('And the product of their multiplication is %s' % (int(data[i-1]) * int(data[j-1])))
             print()

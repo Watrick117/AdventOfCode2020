@@ -44,6 +44,7 @@ for j in range(0, len(passwords)):
 
     temp = passwords[j][0].split("-")
     
+    # Numpy is the only way I know how to use logical xor
     if np.logical_xor(passwords[j][2][int(temp[0])-1:int(temp[0])] == str(passwords[j][1]) , passwords[j][2][int(temp[1])-1:int(temp[1])] == str(passwords[j][1])):
         validPasswords += 1
     else:

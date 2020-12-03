@@ -30,72 +30,31 @@ for i in range(0, len(treemap)):
     print(treemap[i])
 
 slopes = [(1,1),(3,1),(5,1),(7,1),(1,2)]
-#slopes = [(1,1),(1,3),(1,5),(1,7),(1,1)]
 
-keepCount = []
-
-
-print(slopes)
-print(f'{len(treemap) = }')
-
-for i in range(0,5):
-    for j in range(0,2):
-        print(slopes[i][j])
+totalOfTreePerRun = []
 
 multitudeOfTrees = 1
 
-for i in range(0, 5):
+for slope in slopes:
 
-    print("For loop")
-    x = 0
-    y = 0
+    row = 0
+    col = 0
 
     count = 0
 
-    #while x + 1 < len(treemap):
-    for x in range(0, len(treemap)):
+    while row + 1 < len(treemap):
 
-        #print(f'{treemap[i][x] = }')
-        #print("While loop")
-
-        x += slopes[i][1]
-        y += slopes[i][0]
+        row += slope[1]
+        col += slope[0]
         
-        #print()
-        #print(f'{len(treemap) = }')
-        #print(f'{treemap[x] = }')
-        print(f'{slopes[i][0] = }')
-        print(f'{slopes[i][1] = }')
-        #print(f'{x = }')
-        #print(f'{y = }')
-        #print(f'{y % len(treemap[x]) = }')
-
-        #print(len(treemap))
-        #print(f'{x = }')
-
-        """if x >= len(treemap):
-            print()
-            print('about to go over')
-            print('x > len(treemap)')
-            print(x)
-            print()
-        """
-
-        if x > len(treemap) -1:
-            break
-
-        print(f'{treemap[x-1] = }')
-        if treemap[x][ y % len(treemap[x]) ] == '#':
+        if treemap[row][ col % len(treemap[row]) ] == '#':
             count += 1
 
-    print()
-    print(f'{count = }')
-
-    keepCount.append(count)
+    totalOfTreePerRun.append(count)
     multitudeOfTrees *= count
-    print(f'{multitudeOfTrees = }')
 
+print()
+print(f'{totalOfTreePerRun = }')
 print(f'{multitudeOfTrees = }')
-print(f'{keepCount = }')
 
 sys.exit()

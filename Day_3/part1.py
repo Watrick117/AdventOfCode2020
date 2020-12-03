@@ -69,16 +69,16 @@ fileObj.close()
 for i in range(0, len(treemap)):
     print(treemap[i])
 
-x = 0
-y = 0
+row = 0
+col = 0
 count = 0
 
-while x + 1 < len(treemap):
+while row + 1 < len(treemap):
 
-    x += 1
-    y += 3
+    row += 1
+    col += 3
 
-    if treemap[x][ y % len(treemap[x]) ] == '#':
+    if treemap[row][ col % len(treemap[row]) ] == '#':
         count += 1
 
 print()

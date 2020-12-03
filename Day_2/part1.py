@@ -23,18 +23,17 @@ Each line gives the password policy and then the password. The password policy i
 In the above example, 2 passwords are valid. The middle password, cdefg, is not; it contains no instances of b, but needs at least 1. The first and third passwords are valid: they contain one a or nine c, both within the limits of their respective policies.
 
 How many passwords are valid according to their policies?
-
 """
 
 import csv
 import sys
 
 with open("passwords.csv","r") as csvFile:
-  reader = csv.reader(csvFile)
-  passwords = []
-  for row in reader:
-     if len(row) !=0:
-        passwords = passwords + row 
+    reader = csv.reader(csvFile)
+    passwords = []
+    for row in reader:
+        if len(row) !=0:
+            passwords = passwords + row 
 csvFile.close()
 
 validPasswords = 0
@@ -43,7 +42,6 @@ invalidPasswords = 0
 for i in range(0, len(passwords)):
     passwords[i] = passwords[i].split(" ")
     passwords[i][1] = passwords[i][1].replace(':', '')
-
     
 for j in range(0, len(passwords)):
 

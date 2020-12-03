@@ -17,7 +17,6 @@ Given the same example list from above:
     2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
 
 How many passwords are valid according to the new interpretation of the policies?
-
 """
 
 import csv
@@ -25,21 +24,20 @@ import numpy as np
 import sys
 
 with open("passwords.csv","r") as csvFile:
-  reader = csv.reader(csvFile)
-  passwords = []
-  for row in reader:
-     if len(row) !=0:
-        passwords = passwords + row 
+    reader = csv.reader(csvFile)
+    passwords = []
+    i = 0
+    for row in reader:
+        if len(row) !=0:
+            passwords = passwords + row 
+            passwords[i] = passwords[i].split(" ")
+            passwords[i][1] = passwords[i][1].replace(':', '')
+        i += 1
 csvFile.close()
 
 validPasswords = 0
 invalidPasswords = 0
-
-for i in range(0, len(passwords)):
-    passwords[i] = passwords[i].split(" ")
-    passwords[i][1] = passwords[i][1].replace(':', '')
-
-    
+  
 for j in range(0, len(passwords)):
 
     temp = passwords[j][0].split("-")

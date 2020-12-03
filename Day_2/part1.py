@@ -2,6 +2,8 @@
 """Patrick Woltman
 --- Day 2: Password Philosophy ---
 
+--- Part One ---
+
 Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via toboggan.
 
 The shopkeeper at the North Pole Toboggan Rental Shop is having a bad day. "Something's wrong with our computers; we can't log in!" You ask if you can take a look.
@@ -59,14 +61,8 @@ for j in range(0, len(passwords)):
     elif count < int(temp[0]) or count > int(temp[1]):
         invalidPasswords += 1
 
-    if (count >= int(temp[0]) <= int(temp[1])) == True and (count < int(temp[0]) < int(temp[1])) == True:
-        input('Whats wrong with this section.\n')
-
 print()
 print(f'{invalidPasswords = }')
 print(f'{validPasswords = }')
-
-if len(passwords) - invalidPasswords - validPasswords == 0:
-    print("Program Worked")
 
 sys.exit()

@@ -51,7 +51,7 @@ Count the number of valid passports - those that have all required fields. Treat
 
 import sys
 
-file1 = open('passports.bat', 'r') 
+file1 = open('passports_test.bat', 'r') 
 unsorted = file1.readlines() 
 
 passports = []
@@ -62,32 +62,77 @@ required_fields = [
     'hgt',
     'hcl',
     'ecl',
-    'pid',
-    'cid'
+    'pid'
+    #'cid' has been removed to let North Pole Credentials get thru the passport checks
 ]
 
+counttotal = 0
 count = 0
+index = 0
+temp = ''
 
+"""
 for line in unsorted:
-    if line != '\n':
-        passports.append(line.strip())
+    if line == '':
+        print(f'{i = }')
+        print(f'{temp = }')
+        print('newline')
+        passports.append(temp.strip().split())
+        temp = ''
+    else:
+        temp += line
+        print(temp)
+    #passports.append(line.strip().split('\n'))
+    #passports.append(line.strip().split())
+"""
 
-for i in range(0, len(passports)):
-    passports[i] = str(str(passports[i]).split(':')).split()
+print(len(unsorted))
 
-for i in range(0, len(passports)):
-    for j in range(0, len(required_fields)):
-        if  passports[i] in required_fields:
-            print(f'{passports = }')
-            count += 1
+for i in range(0, len(unsorted)):
+    if unsorted[i] != '\n':
+        temp = str(temp + ' ' + unsorted[i]).replace(':', ' ').strip('\n')
+        print("added to temp")
+    elif unsorted[i] == '\n':
+        passports.append(temp.strip().split())
+        temp = ''
 
-for i in range(0, len(passports)):
-    print(f'{passports[i] = }')
+    print(f'{temp = }')
 
 print()
+for i in passports:
+    print(i)
+    #if unsorted[i] == '\n':
+        #passports.append(line.strip().split('\n')"""
+print()
+"""
+    for j in range(0, len(passports[i])):
+        if passports[i][j][0:3] in required_fields:
+            count += 1
+            #print(f'{count = }')
+            #print(f'{str(passports[i][j][0:3]) = }')
+        if count == len(required_fields):
+            counttotal += 1
+"""
+
+
+print()
+print()
+print()
+print()
+print('--------------------------------------------------------')
 #print(f'{required_fields = }')
+#print(f'{passports = }')
+print()
+print(f'{counttotal = }')
+print(f'{passports = }')
+print(f'{unsorted[1] = }')
 print(f'{len(passports) = }')
 print(f'{count = }')
 
 
 sys.exit()
+
+"""
+guessed:
+20
+"""

@@ -79,7 +79,8 @@ unsorted = file1.readlines()
 
 passports = []
 dictionary_passports = {}
-sorted_passports = []
+sorted_passports = ['9999999999','9999999999']
+count = 0
 
 required_fields = [
     'byr',
@@ -102,15 +103,36 @@ for i in range(0, len(unsorted)):
         temp = str(temp + ' ' + unsorted[i]).strip('\n')
     elif unsorted[i] == '\n':
         passports.append(temp.strip().split())
+        #print(f'{passports = }')
         temp = ''
+
+print('---------------------------------------------------')
 
 for i in range(0, len(passports)):
     for j in range(0, len(passports[i])):
         tempB = passports[i][j].replace(':', ' ').split(' ')
         dictionary_passports[tempB[0]] = tempB[1]
-    sorted_passports.append(dictionary_passports)
-    print(dictionary_passports)
+    #sorted_passports.append(dictionary_pssports) # TODO: *** start back again here "why is this not working???"
+    print(f'{dictionary_passports = }')
+    try:
+        if 1920 < int(dictionary_passports['byr']) < 2002:
+            print(dictionary_passports['byr'])
+            print('byr is good passport[%s] ===== %s' % i)
+            break #TODO: will break work in try
+    except:
+        print('bry is wrong passport[%s]' % i)
+
+    try:
+        if 2010 < int(dictionary_passports['iyr']) < 2020:
+            print(dictionary_passports['iyr'])
+            print('iyr is good passport[%s]' % i)
+    except:
+        print('iyr is wrong passport[%s]' % i)
+
     dictionary_passports.clear()
+    print('---------------------------------------------------')
+
+print('---------------------------------------------------')
 
 """for i in range(0, len(passports)):
     count = 0
@@ -119,15 +141,6 @@ for i in range(0, len(passports)):
             count += 1
             if count == len(required_fields):
                 valid_passports += 1"""
-
-for i in range(0, len(sorted_passports)):
-    for j in range(0, len(sorted_passports[i])):
-        try:
-            if sorted_passports[1] in required_fields:
-                count += 1
-                print("its in here")
-        except:
-            print('')
 
 """
 byr (Birth Year) - four digits; at least 1920 and at most 2002.
@@ -149,6 +162,8 @@ print('---------------------------------------------------')
 print(f'{dictionary_passports = }')
 print('---------------------------------------------------')
 print(f'{sorted_passports = }')
+print('---------------------------------------------------')
+print(f'{count = }')
 print('---------------------------------------------------')
 print(f'{len(sorted_passports) = }') #259
 

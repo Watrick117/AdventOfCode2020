@@ -74,14 +74,14 @@ Count the number of valid passports - those that have all required fields and va
 
 import sys
 
-file1 = open('passports_testing.bat', 'r') 
+file1 = open('passports_invalid.bat', 'r') 
 unsorted = file1.readlines() 
 
 passports = []
 dictionary_passports = {}
-sorted_passports = ['9999999999','9999999999']
 count = 0
-validcount = 0
+is_valid = True
+valid_count = 0
 
 required_fields = [
     'byr',
@@ -94,7 +94,8 @@ required_fields = [
     #'cid' #has been removed to let North Pole Credentials get thru the passport checks
 ]
 
-eye_color = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
+eye_colors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
+hcl_safe_chars = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
 
 valid_passports = 0
 temp = ''
@@ -114,99 +115,120 @@ for i in range(0, len(passports)):
     for j in range(0, len(passports[i])):
         tempB = passports[i][j].replace(':', ' ').split(' ')
         dictionary_passports[tempB[0]] = tempB[1]
-    #sorted_passports.append(dictionary_pssports) # TODO: *** start back again here "why is this not working???"
     print(f'{dictionary_passports = }')
+
     try:
-        if 1920 < int(dictionary_passports['byr']) < 2002:
+        if 1919 < int(dictionary_passports['byr']) < 2003:
             print(dictionary_passports['byr'])
-            print('byr is good passport[%s] ===== %s' % i)
-            count += 1
+            print('byr is good passport[%s]' % i)
     except:
         print('bry is wrong passport[%s]' % i)
+        is_valid = False
 
     try:
-        if 2010 < int(dictionary_passports['iyr']) < 2020:
+        if 2009 < int(dictionary_passports['iyr']) < 2021:
             print(dictionary_passports['iyr'])
             print('iyr is good passport[%s]' % i)
-            count += 1
     except:
         print('iyr is wrong passport[%s]' % i)
+        is_valid = False
 
     try:
-        if 2020 < int(dictionary_passports['eyr']) < 2030:
+        if 2019 < int(dictionary_passports['eyr']) < 2031:
             print(dictionary_passports['eyr'])
             print('eyr is good passport[%s]' % i)
-            count += 1
     except:
         print('eyr is wrong passport[%s]' % i)
+        is_valid = False
 
     try:
-        if dictionary_passports['hgt'].strip('0123456789') == 'cm':
+        if dictionary_passports['hgt'].endswith('cm'):
             if 150 < int(dictionary_passports['hgt'].strip('cm')) < 193:
                 print(dictionary_passports['hgt'])
                 print('hgt is good passport[%s]' % i)
-                count += 1
-        elif dictionary_passports['hgt'].strip('0123456789') == 'in':
+        elif dictionary_passports['hgt'].endswith('in'):
             if 59 < int(dictionary_passports['hgt'].strip('in')) < 76:
                 print(dictionary_passports['hgt'])
                 print('hgt is good passport[%s]' % i)
-                count += 1
     except:
         print('hgt is wrong passport[%s]' % i)
+        is_valid = False
+
+    try:
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+        print(dictionary_passports['hcl'][1:])
+    except:
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
+        print('88888888888888888888888888888')
 
     try:
         if dictionary_passports['hcl'][0] == '#' and len(dictionary_passports['hcl'][1:]) == 6:
-            print(dictionary_passports['hcl'])
-            print('hcl is good passport[%s]' % i)
-            count += 1
+            for i in range(0, len(dictionary_passports['hcl'])):
+                if dictionary_passports['hcl'][i] in hcl_safe_chars:
+                    count += 1
+                if count == 6:
+                    print(dictionary_passports['hcl'])
+                    print('hcl is good passport[%s]' % i)
+        count = 0
     except:
         print('hcl is wrong passport[%s]' % i)
+        is_valid = False
 
     try:
         if dictionary_passports['ecl'] in eye_colors:
             print(dictionary_passports['ecl'])
             print('ecl is good passport[%s]' % i)
-            count += 1
     except:
         print('ecl is wrong passport[%s]' % i)
+        is_valid = False
 
     try:
-
-        if len(dictionary_passports['pid'] == 9):
+        if len(dictionary_passports['pid']) == 9:
             print(dictionary_passports['pid'])
             print('pid is good passport[%s]' % i)
-            count += 1
     except:
         print('pid is wrong passport[%s]' % i)
+        is_valid = False
 
     dictionary_passports.clear()
 
-    print(f'{count = }')
-    print(f'{validcount = }')
+    print(f'{valid_count = }')
 
-    if count == len(required_fields):
-        validcount += 1
-        print('this passport is valid!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    print('---------------------------------------------------')
-
-print('---------------------------------------------------')
-
-"""
-byr (Birth Year) - four digits; at least 1920 and at most 2002.
-iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-hgt (Height) - a number followed by either cm or in:
-    If cm, the number must be at least 150 and at most 193.
-    If in, the number must be at least 59 and at most 76.
-hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-pid (Passport ID) - a nine-digit number, including leading zeroes.
-cid (Country ID) - ignored, missing or not.
-"""
+    if is_valid == True:
+        valid_count += 1
+        print('this passport is valid!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    elif is_valid == False:
+        print('this passport ERRORED*********************************************************************************')
     
+    is_valid = True
+    print('---------------------------------------------------')
+    
+print(f'{valid_count = }')
 print('---------------------------------------------------')
-print(f'{validcount = }')
+print(f'{len(passports) = }')
 print('---------------------------------------------------')
-print(f'{passports = }') #259
+#print(f'{passports[258] = }')
+
+print()
 
 sys.exit()
+
+"""
+tried:
+    99
+    102 it is too high
+    107 it is too high
+"""

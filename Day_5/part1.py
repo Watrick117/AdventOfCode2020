@@ -47,11 +47,6 @@ import sys
 
 def recursive_delete(boarding_pass, index, low, high):
 
-    string = boarding_pass
-    boarding_pass_index = boarding_pass[index]
-    size_of_boarding_pass = (high-low+1)
-    size_of_boarding_pass_by_2 = (high-low+1) / 2
-
     if high - low == 1:
         if boarding_pass[index] == 'F' or boarding_pass[index] == 'L':
             return low

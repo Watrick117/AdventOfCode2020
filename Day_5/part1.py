@@ -51,6 +51,7 @@ def recursive_delete(boarding_pass, index, low, high):
     boarding_pass_index = boarding_pass[index]
     size_of_boarding_pass = (high-low+1)
     size_of_boarding_pass_by_2 = (high-low+1) / 2
+
     if low - high == 1:
         if boarding_pass[index] == 'F':
             return high
@@ -80,11 +81,11 @@ for i in range(0, len(passes)):
     #for j in range(0, len(passes[i][:7])):
 highh = 127
 loww = 0
-
+temp = recursive_delete(passes[0], 0, 0, 127)
 print(highh-( int((loww+highh) / 2)))
 print()
 print(f'{passes[1] = }')
 print()
-print(recursive_delete(passes[0], 0, 0, 127))
+print(temp)
 
 sys.exit()

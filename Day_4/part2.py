@@ -74,7 +74,7 @@ Count the number of valid passports - those that have all required fields and va
 
 import sys
 
-file1 = open('passports_invalid.bat', 'r') 
+file1 = open('passports.bat', 'r') 
 unsorted = file1.readlines() 
 
 passports = []
@@ -137,23 +137,27 @@ for i in range(0, len(passports)):
         print(dictionary_passports['eyr'])
         if 2019 < int(dictionary_passports['eyr']) < 2031:
             print('eyr is good passport[%s]' % i)
+        else: is_valid = False
     else:
         print('eyr is wrong passport[%s]' % i)
         is_valid = False
 
-    if 'hgt' in dictionary_passports:
+    if 'hgt' in dictionary_passports: #TODO: go over else statments
         print(dictionary_passports['hgt'])
         if dictionary_passports['hgt'].endswith('cm'):
             if 150 < int(dictionary_passports['hgt'].strip('cm')) < 193:
                 print('hgt is good passport[%s]' % i)
+            else: is_valid = False
         elif dictionary_passports['hgt'].endswith('in'):
             if 59 < int(dictionary_passports['hgt'].strip('in')) < 76:
                 print('hgt is good passport[%s]' % i)
+            else: is_valid = False
+        else: is_valid = False
     else:
         print('hgt is wrong passport[%s]' % i)
         is_valid = False
 
-    if 'hcl' in dictionary_passports:
+    if 'hcl' in dictionary_passports: #TODO: go over else statments
         print(dictionary_passports['hcl'])
         if dictionary_passports['hcl'][0] == '#' and len(dictionary_passports['hcl'][1:]) == 6:
             for i in range(0, len(dictionary_passports['hcl'])):
@@ -161,9 +165,11 @@ for i in range(0, len(passports)):
                     count += 1
             if count == 6:
                 print('hcl is good passport[%s]' % i)
-            else: is_valid = False
+                count = 0
+            else: 
+                is_valid = False
+                count = 0
         else: is_valid = False
-        count = 0
     else:
         print('hcl is wrong passport[%s]' % i)
         is_valid = False
@@ -172,6 +178,7 @@ for i in range(0, len(passports)):
         print(dictionary_passports['ecl'])
         if dictionary_passports['ecl'] in eye_colors:
             print('ecl is good passport[%s]' % i)
+        else: is_valid = False
     else:
         print('ecl is wrong passport[%s]' % i)
         is_valid = False
@@ -180,6 +187,7 @@ for i in range(0, len(passports)):
         print(dictionary_passports['pid'])
         if len(dictionary_passports['pid']) == 9:
             print('pid is good passport[%s]' % i)
+        else: is_valid = False
     else:
         print('pid is wrong passport[%s]' % i)
         is_valid = False
@@ -221,26 +229,6 @@ for i in range(0, len(passports)):
     except:
         print('hgt is wrong passport[%s]' % i)
         is_valid = False
-
-    try:
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-        print(dictionary_passports['hcl'][1:])
-    except:
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
-        print('88888888888888888888888888888')
 
     try:
         if dictionary_passports['hcl'][0] == '#' and len(dictionary_passports['hcl'][1:]) == 6:
@@ -300,5 +288,6 @@ sys.exit()
 tried:
     99
     102 it is too high
+    103
     107 it is too high
 """

@@ -117,6 +117,74 @@ for i in range(0, len(passports)):
         dictionary_passports[tempB[0]] = tempB[1]
     print(f'{dictionary_passports = }')
 
+    if 'byr' in dictionary_passports:
+        print(dictionary_passports['byr'])
+        if 1919 < int(dictionary_passports['byr']) < 2003:
+            print('byr is good passport[%s]' % i)
+    else:
+        print('bry is wrong passport[%s]' % i)
+        is_valid = False
+
+    if 'iyr' in dictionary_passports:
+        print(dictionary_passports['iyr'])
+        if 2009 < int(dictionary_passports['iyr']) < 2021:
+            print('iyr is good passport[%s]' % i)
+    else:
+        print('iyr is wrong passport[%s]' % i)
+        is_valid = False
+
+    if 'eyr' in dictionary_passports:
+        print(dictionary_passports['eyr'])
+        if 2019 < int(dictionary_passports['eyr']) < 2031:
+            print('eyr is good passport[%s]' % i)
+    else:
+        print('eyr is wrong passport[%s]' % i)
+        is_valid = False
+
+    if 'hgt' in dictionary_passports:
+        print(dictionary_passports['hgt'])
+        if dictionary_passports['hgt'].endswith('cm'):
+            if 150 < int(dictionary_passports['hgt'].strip('cm')) < 193:
+                print('hgt is good passport[%s]' % i)
+        elif dictionary_passports['hgt'].endswith('in'):
+            if 59 < int(dictionary_passports['hgt'].strip('in')) < 76:
+                print('hgt is good passport[%s]' % i)
+    else:
+        print('hgt is wrong passport[%s]' % i)
+        is_valid = False
+
+    if 'hcl' in dictionary_passports:
+        print(dictionary_passports['hcl'])
+        if dictionary_passports['hcl'][0] == '#' and len(dictionary_passports['hcl'][1:]) == 6:
+            for i in range(0, len(dictionary_passports['hcl'])):
+                if dictionary_passports['hcl'][i] in hcl_safe_chars:
+                    count += 1
+            if count == 6:
+                print('hcl is good passport[%s]' % i)
+            else: is_valid = False
+        else: is_valid = False
+        count = 0
+    else:
+        print('hcl is wrong passport[%s]' % i)
+        is_valid = False
+    
+    if 'ecl' in dictionary_passports:
+        print(dictionary_passports['ecl'])
+        if dictionary_passports['ecl'] in eye_colors:
+            print('ecl is good passport[%s]' % i)
+    else:
+        print('ecl is wrong passport[%s]' % i)
+        is_valid = False
+
+    if 'pid' in dictionary_passports:
+        print(dictionary_passports['pid'])
+        if len(dictionary_passports['pid']) == 9:
+            print('pid is good passport[%s]' % i)
+    else:
+        print('pid is wrong passport[%s]' % i)
+        is_valid = False
+
+    """
     try:
         if 1919 < int(dictionary_passports['byr']) < 2003:
             print(dictionary_passports['byr'])
@@ -186,7 +254,7 @@ for i in range(0, len(passports)):
     except:
         print('hcl is wrong passport[%s]' % i)
         is_valid = False
-
+    
     try:
         if dictionary_passports['ecl'] in eye_colors:
             print(dictionary_passports['ecl'])
@@ -202,10 +270,11 @@ for i in range(0, len(passports)):
     except:
         print('pid is wrong passport[%s]' % i)
         is_valid = False
+    """
 
     dictionary_passports.clear()
 
-    print(f'{valid_count = }')
+    print(f'{is_valid = }')
 
     if is_valid == True:
         valid_count += 1
@@ -213,6 +282,7 @@ for i in range(0, len(passports)):
     elif is_valid == False:
         print('this passport ERRORED*********************************************************************************')
     
+    print(f'{valid_count = }')
     is_valid = True
     print('---------------------------------------------------')
     

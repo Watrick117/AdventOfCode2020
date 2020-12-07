@@ -87,6 +87,7 @@ for i in range(0, len(passes)):
 
 print()
 
+#prints seating info
 for i in range(0, len(seating_info)):
     print(seating_info[i])
 

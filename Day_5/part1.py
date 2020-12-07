@@ -46,46 +46,56 @@ As a sanity check, look through your list of boarding passes. What is the highes
 import sys
 
 def recursive_delete(boarding_pass, index, low, high):
-    print("recursion")
 
+    string = boarding_pass
     boarding_pass_index = boarding_pass[index]
     size_of_boarding_pass = (high-low+1)
     size_of_boarding_pass_by_2 = (high-low+1) / 2
 
-    if low - high == 1:
-        if boarding_pass[index] == 'F':
-            return high
-        elif boarding_pass[index] == 'B':
+    if high - low == 1:
+        if boarding_pass[index] == 'F' or boarding_pass[index] == 'L':
             return low
+        elif boarding_pass[index] == 'B' or boarding_pass[index] == 'R':
+            return high
 
-    if boarding_pass[index] == 'F':
-        print(f'{boarding_pass[index] = }')
-        print(f'{index + 1 = }')
-        print(f'{low = }')
-        print(f'{high = }')
-        print('---------------------------------------')
+    if boarding_pass[index] == 'F' or boarding_pass[index] == 'L':
         return recursive_delete(boarding_pass, index + 1, low, high-( int((high-low+1) / 2)))
-    elif boarding_pass[index] == 'B':
+    elif boarding_pass[index] == 'B' or boarding_pass[index] == 'R':
         return recursive_delete(boarding_pass, index + 1, low+( int((high-low+1) / 2)), high)
 
+seating_info = []
 # Takes in separate lines from .txt (read only) and saves them to passes
-fileObj = open('boarding_passes_samples.txt', "r")
+fileObj = open('boarding_passes.txt', "r")
 passes = fileObj.read().splitlines()
 fileObj.close()
 
-# Prints Boarding Passes
+# Prints full Boarding Passes
 for i in range(0, len(passes)):
-    print(passes[i][:7])
+    print(passes[i])
 
-#for i in range(0, len(passes)):
-    #for j in range(0, len(passes[i][:7])):
-highh = 127
-loww = 0
-temp = recursive_delete(passes[0], 0, 0, 127)
-print(highh-( int((loww+highh) / 2)))
+
+# Walk thru the list of boarding passes calculate the row, column, and seat ID
+
+highest_seatID = 0
+
+for i in range(0, len(passes)):
+    row = recursive_delete(passes[i][:7],0, 0, 127)
+    column = recursive_delete(passes[i][7:], 0, 0, 7)
+    seatID = row * 8 + column
+
+    if highest_seatID < seatID:
+        highest_seatID = seatID
+
+    temp = [passes[i], row, column, seatID]
+
+    seating_info.append(temp)
+
 print()
-print(f'{passes[1] = }')
+
+for i in range(0, len(seating_info)):
+    print(seating_info[i])
+
 print()
-print(temp)
+print('The highest sead ID on a boarding pass == %s' % highest_seatID)
 
 sys.exit()

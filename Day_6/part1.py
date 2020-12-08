@@ -69,11 +69,7 @@ for i in range(0, len(unsorted)):
 for group in range(0, len(declarations)):
     for person in range(0, len(declarations[group])):
         #for answer in range(0, len(declaration[group][person])): 
-        debug_temp = declarations[group][person]
         temp += declarations[group][person]
-    
-    # Counts the elements in a list after all duplicates have been deleted
-    debug_sums_per_group = len(list(dict.fromkeys(temp)))
 
     # Removes duplicates from temp and counts the how many there are
     sums.append(len(list(dict.fromkeys(temp))))

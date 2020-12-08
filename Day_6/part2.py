@@ -42,6 +42,7 @@ Materials Used:
     https://pymotw.com/2/collections/counter.html
 """
 
+import collections
 import sys
 
 # file input
@@ -63,17 +64,19 @@ for i in range(0, len(unsorted)):
         temp.clear()
 
 # Walks thru every person and every group and counts the number of yes's they have answered
+count = 0
+
 for group in range(0, len(declarations)):
     for person in range(0, len(declarations[group])):
-        #for answer in range(0, len(declaration[group][person])): 
         debug_temp = declarations[group][person]
         temp += declarations[group][person]
-    
-    # Counts the elements in a list after all duplicates have been deleted
-    debug_sums_per_group = len(list(dict.fromkeys(temp)))
+    c = collections.Counter(temp)
+    for letter in 'abcdefghijklmnopqrstuvwxyz':
+        if c[letter] == len(declarations[group]):
+            count += 1
 
-    # Removes duplicates from temp and counts the how many there are
-    sums.append(len(list(dict.fromkeys(temp))))
+    sums.append(count)
+    count = 0
     temp = ''
     
 # Displays the sorted infromation to the screen
@@ -86,7 +89,5 @@ print(sums)
 
 print()
 print('The total number of all the groups of passangers is %s' % sum(sums))
-
-print collections.Counter(['a', 'b', 'c', 'a', 'b', 'b'])
 
 sys.exit()

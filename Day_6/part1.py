@@ -66,12 +66,14 @@ for i in range(0, len(unsorted)):
         declarations.append(temp.copy()) # adds temp to declaration NOT by refferance but an actual copy of the list
         temp.clear()
 
+testtest = ''
 # 
 for group in range(0, len(declarations)):
     for person in range(0, len(declarations[group])):
         #for answer in range(0, len(declaration[group][person])): 
         debug_temp = declarations[group][person]
         temp += declarations[group][person]
+        testtest += declarations[group][person]
         print(f'{temp = }')
     
     # Counts the elements in a list after all duplicates have been deleted
@@ -94,14 +96,17 @@ for group in range(0, len(declarations)):
 print()
 print(sums)
 
-# Adds up all the values in sums and sets them to total
-total = 0
-
-for i in range(0, len(sums)):
-    total += sums[i]
+print()
+print('The total number of all the groups of passangers is %s' % sum(sums))
 
 print()
-print('The total number of all the groups of passangers is %s' % total)
+print(list(dict.fromkeys(testtest)))
+
+print()
+print(len(declarations))
+
+print()
+print(len(sums))
 
 sys.exit()
 

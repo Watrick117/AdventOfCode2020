@@ -62,15 +62,12 @@ for i in range(0, len(unsorted)):
         declarations.append(temp.copy()) # adds temp to declaration NOT by refferance but an actual copy of the list
         temp.clear()
 
-testtest = ''
-
 # Walks thru every person and every group and counts the number of yes's they have answered
 for group in range(0, len(declarations)):
     for person in range(0, len(declarations[group])):
         #for answer in range(0, len(declaration[group][person])): 
         debug_temp = declarations[group][person]
         temp += declarations[group][person]
-        testtest += declarations[group][person]
     
     # Counts the elements in a list after all duplicates have been deleted
     debug_sums_per_group = len(list(dict.fromkeys(temp)))

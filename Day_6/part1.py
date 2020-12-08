@@ -67,7 +67,8 @@ for i in range(0, len(unsorted)):
         temp.clear()
 
 testtest = ''
-# 
+
+# Walks thru every person and every group and counts the number of yes's they have answered
 for group in range(0, len(declarations)):
     for person in range(0, len(declarations[group])):
         #for answer in range(0, len(declaration[group][person])): 
@@ -79,9 +80,12 @@ for group in range(0, len(declarations)):
     # Counts the elements in a list after all duplicates have been deleted
     debug_sums_per_group = len(list(dict.fromkeys(temp)))
     
+    print(f'{declarations[group]}')
     print(f'{list(dict.fromkeys(temp)) = }')
     print(f'{len(list(dict.fromkeys(temp))) = }')
     print()
+
+    # Removes duplicates from temp and counts the how many there are
     sums.append(len(list(dict.fromkeys(temp))))
     temp = ''
     

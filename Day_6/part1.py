@@ -47,13 +47,14 @@ For each group, count the number of questions to which anyone answered "yes". Wh
 
 import sys
 
-# File input
-file1 = open('answers_samples.txt', 'r') 
+# file input
+file1 = open('declarations_samples.txt', 'r') 
 unsorted = file1.read().splitlines()
 file1.close()
 
-answers = []
+declarations = []
 temp = []
+sums = []
 
 # Walks thru the unsorted information and files them in to a list of lists
 for i in range(0, len(unsorted)):
@@ -62,17 +63,48 @@ for i in range(0, len(unsorted)):
     if unsorted[i] != '':
         temp.append(unsorted[i])
     elif unsorted[i] == '':
-        answers.append(temp.copy()) # adds temp to answers NOT by refferance but an actual copy of the list
+        declarations.append(temp.copy()) # adds temp to declaration NOT by refferance but an actual copy of the list
         temp.clear()
 
 # 
-for i in range(0, len(answers)):
-    for j in range(0, len(answers[i])):
-        print(answers[i][j])
+for group in range(0, len(declarations)):
+    for person in range(0, len(declarations[group])):
+        #for answer in range(0, len(declaration[group][person])): 
+        debug_temp = declarations[group][person]
+        temp += declarations[group][person]
+        print(f'{temp = }')
+    
+    # Counts the elements in a list after all duplicates have been deleted
+    debug_sums_per_group = len(list(dict.fromkeys(temp)))
+    
+    print(f'{list(dict.fromkeys(temp)) = }')
+    print()
+    sums.append(len(list(dict.fromkeys(temp))))
+    temp = ''
+    
+
+
 
 # Displays the sorted infromation to the screen
 print()
-for i in range(0, len(answers)):
-    print(answers[i])
+for group in range(0, len(declarations)):
+    print(declarations[group])
+
+print()
+#print(sums)
+
+# Adds up all the values in sums and sets them to total
+total = 0
+
+for i in range(0, len(sums)):
+    total += sums[i]
+
+print()
+print('The total number of all the groups of passangers is %s' % total)
 
 sys.exit()
+
+"""
+Tried:
+6697 is too low
+"""

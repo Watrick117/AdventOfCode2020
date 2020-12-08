@@ -87,4 +87,6 @@ print(sums)
 print()
 print('The total number of all the groups of passangers is %s' % sum(sums))
 
+print collections.Counter(['a', 'b', 'c', 'a', 'b', 'b'])
+
 sys.exit()

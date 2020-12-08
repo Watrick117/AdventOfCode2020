@@ -59,7 +59,6 @@ sums = []
 # Walks thru the unsorted information and files them in to a list of lists
 for i in range(0, len(unsorted)):
     debug_unsorted = unsorted[i]
-    #print(unsorted[i])
     if unsorted[i] != '':
         temp.append(unsorted[i])
     elif unsorted[i] == '':
@@ -75,23 +74,14 @@ for group in range(0, len(declarations)):
         debug_temp = declarations[group][person]
         temp += declarations[group][person]
         testtest += declarations[group][person]
-        print(f'{temp = }')
     
     # Counts the elements in a list after all duplicates have been deleted
     debug_sums_per_group = len(list(dict.fromkeys(temp)))
-    
-    print(f'{declarations[group]}')
-    print(f'{list(dict.fromkeys(temp)) = }')
-    print(f'{len(list(dict.fromkeys(temp))) = }')
-    print()
 
     # Removes duplicates from temp and counts the how many there are
     sums.append(len(list(dict.fromkeys(temp))))
     temp = ''
     
-
-
-
 # Displays the sorted infromation to the screen
 print()
 for group in range(0, len(declarations)):
@@ -103,18 +93,4 @@ print(sums)
 print()
 print('The total number of all the groups of passangers is %s' % sum(sums))
 
-print()
-print(list(dict.fromkeys(testtest)))
-
-print()
-print(len(declarations))
-
-print()
-print(len(sums))
-
 sys.exit()
-
-"""
-Tried:
-6697 is too low
-"""

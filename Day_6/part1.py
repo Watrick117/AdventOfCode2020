@@ -48,7 +48,7 @@ For each group, count the number of questions to which anyone answered "yes". Wh
 import sys
 
 # file input
-file1 = open('declarations_samples.txt', 'r') 
+file1 = open('declarations.txt', 'r') 
 unsorted = file1.read().splitlines()
 file1.close()
 
@@ -78,6 +78,7 @@ for group in range(0, len(declarations)):
     debug_sums_per_group = len(list(dict.fromkeys(temp)))
     
     print(f'{list(dict.fromkeys(temp)) = }')
+    print(f'{len(list(dict.fromkeys(temp))) = }')
     print()
     sums.append(len(list(dict.fromkeys(temp))))
     temp = ''
@@ -91,7 +92,7 @@ for group in range(0, len(declarations)):
     print(declarations[group])
 
 print()
-#print(sums)
+print(sums)
 
 # Adds up all the values in sums and sets them to total
 total = 0

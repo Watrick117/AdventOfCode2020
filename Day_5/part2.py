@@ -15,11 +15,6 @@ import sys
 
 def recursive_delete(boarding_pass, index, low, high):
 
-    string = boarding_pass
-    boarding_pass_index = boarding_pass[index]
-    size_of_boarding_pass = (high-low+1)
-    size_of_boarding_pass_by_2 = (high-low+1) / 2
-
     if high - low == 1:
         if boarding_pass[index] == 'F' or boarding_pass[index] == 'L':
             return low
@@ -44,26 +39,47 @@ for i in range(0, len(passes)):
 
 # Walk thru the list of boarding passes calculate the row, column, and seat ID
 
-highest_seatID = 0
+highest_seadID = -1
+lowest_seadID = 1000
 
 for i in range(0, len(passes)):
     row = recursive_delete(passes[i][:7],0, 0, 127)
     column = recursive_delete(passes[i][7:], 0, 0, 7)
     seatID = row * 8 + column
 
-    if highest_seatID < seatID:
-        highest_seatID = seatID
+    if highest_seadID < seatID:
+        highest_seadID = seatID
+    
+    if lowest_seadID > seatID:
+        lowest_seadID = seatID
 
-    temp = [passes[i], row, column, seatID]
+    temp = [row, column, seatID]
 
     seating_info.append(temp)
 
 print()
 
+seating_info.sort()
+
+#Prints seating info
 for i in range(0, len(seating_info)):
     print(seating_info[i])
 
-print()
-print('The highest sead ID on a boarding pass == %s' % highest_seatID)
+#Finds missing seats
+
+expected_seatID = lowest_seadID
+
+for i in range(0, len(seating_info)):
+    debug_seating_info = seating_info[i][2]
+    debug_expected_seatID = expected_seatID
+    if seating_info[i][2] != expected_seatID:
+        print()
+        print()
+        print('The missing sead ID is == %s' % (int(seating_info[i][2])-1))
+        i += 1
+        expected_seatID += 1
+    expected_seatID += 1
+    if expected_seatID == 8:
+        expected_seatID = 0
 
 sys.exit()

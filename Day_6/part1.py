@@ -44,3 +44,35 @@ In this example, the sum of these counts is 3 + 3 + 3 + 1 + 1 = 11.
 
 For each group, count the number of questions to which anyone answered "yes". What is the sum of those counts?
 """
+
+import sys
+
+# File input
+file1 = open('answers_samples.txt', 'r') 
+unsorted = file1.read().splitlines()
+file1.close()
+
+answers = []
+temp = []
+
+# Walks thru the unsorted information and files them in to a list of lists
+for i in range(0, len(unsorted)):
+    debug_unsorted = unsorted[i]
+    #print(unsorted[i])
+    if unsorted[i] != '':
+        temp.append(unsorted[i])
+    elif unsorted[i] == '':
+        answers.append(temp.copy()) # adds temp to answers NOT by refferance but an actual copy of the list
+        temp.clear()
+
+# 
+for i in range(0, len(answers)):
+    for j in range(0, len(answers[i])):
+        print(answers[i][j])
+
+# Displays the sorted infromation to the screen
+print()
+for i in range(0, len(answers)):
+    print(answers[i])
+
+sys.exit()

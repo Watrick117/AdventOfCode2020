@@ -37,4 +37,29 @@ How many bag colors can eventually contain at least one shiny gold bag? (The lis
 
 import sys
 
+# file input
+file1 = open('regulations_sample.txt', 'r') 
+unsorted = file1.read().splitlines()
+file1.close()
+
+regulations = []
+temp = []
+
+# Walks thru the unsorted information and files them in to a list of lists
+for i in range(0, len(unsorted)):
+    debug_unsorted = unsorted[i]
+    if unsorted[i] != '':
+        temp.append(unsorted[i])
+    elif unsorted[i] == '':
+        regulations.append(temp.copy()) # adds temp to declaration NOT by refferance but an actual copy of the list
+        temp.clear()
+
+for i in range(0, len(regulations)):
+    print(f'{regulations[i] = }')
+
+print()
+print()
+
+print(unsorted)
+
 sys.exit()

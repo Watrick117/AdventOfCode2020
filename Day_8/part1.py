@@ -49,16 +49,37 @@ Run your copy of the boot code. Immediately before any instruction is executed a
 """
 
 import sys
-import pandas as pd   
 
 # file input
+<<<<<<< HEAD
 df = pd.read_fwf('boot_code_sample.txt', sep=" ", header=None, names=['Operation','Argument', 'Accumulator'])
+=======
+file1 = open('boot_code.txt', 'r') 
+unsorted = file1.read().splitlines()
+file1.close()
+>>>>>>> parent of 97e4de3... Update part1.py
 
 
 # Prints panda to the terminal
 print(df) 
 
+<<<<<<< HEAD
 # Ser
 print(ser[[0, 3, 6, 9]])
+=======
+# Splits unsorted and adds it to boot_code
+for i in range(0, len(unsorted)):
+    boot_code.append(unsorted[i].split())
+
+# Reads boot_code and calculates accumlator off of it
+for i in range(0, len(boot_code)):
+    print(f'{boot_code[i] = }')
+
+# Prints the whole boot_code list by line
+for i in range(0, len(boot_code)):
+    print(f'{boot_code[i] = }')
+
+print(f'{boot_code = }')
+>>>>>>> parent of 97e4de3... Update part1.py
 
 sys.exit()

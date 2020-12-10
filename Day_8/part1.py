@@ -51,12 +51,14 @@ Run your copy of the boot code. Immediately before any instruction is executed a
 import sys
 import pandas as pd   
 
-# File input
+# file input
 df = pd.read_fwf('boot_code_sample.txt', sep=" ", header=None, names=['Operation','Argument', 'Accumulator'])
-
 
 
 # Prints panda to the terminal
 print(df) 
+
+# Ser
+print(ser[[0, 3, 6, 9]])
 
 sys.exit()

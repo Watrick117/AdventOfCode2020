@@ -49,9 +49,10 @@ Run your copy of the boot code. Immediately before any instruction is executed a
 """
 
 import sys
+import pandas as pd   
 
 # file input
-file1 = open('boot_code.txt', 'r') 
+file1 = open('boot_code_sample.txt', 'r') 
 unsorted = file1.read().splitlines()
 file1.close()
 
@@ -63,6 +64,16 @@ accumulator = 0
 for i in range(0, len(unsorted)):
     boot_code.append(unsorted[i].split())
 
+      
+# List1   
+#lst = [['Geek', 25], ['is', 30], ['for', 26], ['Geeksforgeeks', 22]]  
+  
+# creating df object with columns specified     
+#df = pd.DataFrame(lst, columns =['Operation','Argument', 'Accumulator'])  
+df = pd.read_fwf('boot_code_sample.txt')
+print(df ) 
+
+
 # Reads boot_code and calculates accumlator off of it
 for i in range(0, len(boot_code)):
     print(f'{boot_code[i] = }')
@@ -71,6 +82,6 @@ for i in range(0, len(boot_code)):
 for i in range(0, len(boot_code)):
     print(f'{boot_code[i] = }')
 
-print(f'{boot_code = }')
+#print(f'{df = }')
 
 sys.exit()

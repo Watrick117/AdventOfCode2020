@@ -51,37 +51,12 @@ Run your copy of the boot code. Immediately before any instruction is executed a
 import sys
 import pandas as pd   
 
-# file input
-file1 = open('boot_code_sample.txt', 'r') 
-unsorted = file1.read().splitlines()
-file1.close()
-
-boot_code = []
-
-accumulator = 0
-
-# Splits unsorted and adds it to boot_code
-for i in range(0, len(unsorted)):
-    boot_code.append(unsorted[i].split())
-
-      
-# List1   
-#lst = [['Geek', 25], ['is', 30], ['for', 26], ['Geeksforgeeks', 22]]  
-  
-# creating df object with columns specified     
-#df = pd.DataFrame(lst, columns =['Operation','Argument', 'Accumulator'])  
-df = pd.read_fwf('boot_code_sample.txt')
-print(df ) 
+# File input
+df = pd.read_fwf('boot_code_sample.txt', sep=" ", header=None, names=['Operation','Argument', 'Accumulator'])
 
 
-# Reads boot_code and calculates accumlator off of it
-for i in range(0, len(boot_code)):
-    print(f'{boot_code[i] = }')
 
-# Prints the whole boot_code list by line
-for i in range(0, len(boot_code)):
-    print(f'{boot_code[i] = }')
-
-#print(f'{df = }')
+# Prints panda to the terminal
+print(df) 
 
 sys.exit()

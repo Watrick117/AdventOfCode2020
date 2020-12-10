@@ -50,36 +50,48 @@ Run your copy of the boot code. Immediately before any instruction is executed a
 
 import sys
 
-# file input
-<<<<<<< HEAD
-df = pd.read_fwf('boot_code_sample.txt', sep=" ", header=None, names=['Operation','Argument', 'Accumulator'])
-=======
 file1 = open('boot_code.txt', 'r') 
 unsorted = file1.read().splitlines()
 file1.close()
->>>>>>> parent of 97e4de3... Update part1.py
 
+boot_code = []
 
-# Prints panda to the terminal
-print(df) 
-
-<<<<<<< HEAD
-# Ser
-print(ser[[0, 3, 6, 9]])
-=======
 # Splits unsorted and adds it to boot_code
 for i in range(0, len(unsorted)):
-    boot_code.append(unsorted[i].split())
+    temp = [unsorted[i].split()[0], unsorted[i].split()[1] , 0]
+    boot_code.append((temp))
 
-# Reads boot_code and calculates accumlator off of it
-for i in range(0, len(boot_code)):
-    print(f'{boot_code[i] = }')
+line = 0
+accumulator = 0
+history = []
 
-# Prints the whole boot_code list by line
-for i in range(0, len(boot_code)):
-    print(f'{boot_code[i] = }')
+while True:
+
+    if line in history:
+        break
+
+    history.append(line)
+
+    if boot_code[line][0] == 'nop':
+        line += 1
+    elif boot_code[line][0] == 'acc':
+        if boot_code[line][1][:1] == '+':
+            boot_code[line][2] += int(boot_code[line][1][1:])
+            accumulator += int(boot_code[line][1][1:])
+            line += 1
+        elif boot_code[line][1][:1] == '-':
+            boot_code[line][2] -= int(boot_code[line][1][1:])
+            accumulator -= int(boot_code[line][1][1:])
+            line += 1
+    elif boot_code[line][0] == 'jmp':
+        if boot_code[line][1][:1] == '+':
+            line += int(boot_code[line][1][1:])
+        elif boot_code[line][1][:1] == '-':
+            line -= int(boot_code[line][1][1:])
 
 print(f'{boot_code = }')
->>>>>>> parent of 97e4de3... Update part1.py
+
+print()
+print('The value of the accumulator before any instruction is run a second time is %s' % accumulator)
 
 sys.exit()

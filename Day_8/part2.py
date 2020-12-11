@@ -40,10 +40,68 @@ Fix the program so that it terminates normally by changing exactly one jmp (to n
 """
 import sys
 
-# file input
-#df = pd.read_fwf('boot_code_sample.txt', sep=" ", header=None, names=['Operation','Argument', 'Accumulator'])
+def instruction_loop(boot_code, last_flipped):
 
-file1 = open('boot_code.txt', 'r') 
+    line = 0
+    accumulator = 0
+
+    history = []
+
+    while True:
+    #print(f'{boot_code[line] = }')
+        if line in history:
+            print('***************')
+            print()
+            print(f'{line = }')
+            print()
+            print('***************')
+            return False
+        elif line > len(boot_code):
+            print('%s was the list line to be flipped' % last_flipped)
+            return accumulator
+        elif line == 0:
+            print()
+            print('Current line that is being fliped is %s' % last_flipped)
+
+        history.append(line)
+
+        if line != last_flipped:
+            if boot_code[line][0] == 'nop':
+                line += 1
+            elif boot_code[line][0] == 'jmp':
+                if boot_code[line][1][:1] == '+':
+                    boot_code[line][2] += int(boot_code[line][1][1:])
+                    accumulator += int(boot_code[line][1][1:])
+                    line += 1
+                elif boot_code[line][1][:1] == '-':
+                    boot_code[line][2] -= int(boot_code[line][1][1:])
+                    accumulator -= int(boot_code[line][1][1:])
+                    line += 1
+            elif boot_code[line][0] == 'acc':
+                if boot_code[line][1][:1] == '+':
+                    line += int(boot_code[line][1][1:])
+                elif boot_code[line][1][:1] == '-':
+                    line -= int(boot_code[line][1][1:])
+                    
+        elif line == last_flipped:
+            if boot_code[line][0] == 'nop':
+                line += 1
+            elif boot_code[line][0] == 'acc':
+                if boot_code[line][1][:1] == '+':
+                    boot_code[line][2] += int(boot_code[line][1][1:])
+                    accumulator += int(boot_code[line][1][1:])
+                    line += 1
+                elif boot_code[line][1][:1] == '-':
+                    boot_code[line][2] -= int(boot_code[line][1][1:])
+                    accumulator -= int(boot_code[line][1][1:])
+                    line += 1
+            elif boot_code[line][0] == 'jmp':
+                if boot_code[line][1][:1] == '+':
+                    line += int(boot_code[line][1][1:])
+                elif boot_code[line][1][:1] == '-':
+                    line -= int(boot_code[line][1][1:])
+
+file1 = open('boot_code_sample_2.txt', 'r') 
 unsorted = file1.read().splitlines()
 file1.close()
 
@@ -53,70 +111,33 @@ boot_code = []
 for i in range(0, len(unsorted)):
     temp = [unsorted[i].split()[0], unsorted[i].split()[1] , 0]
     boot_code.append((temp))
-    #boot_code.append(0)
 
-line = 0
-accumulator = 0
-history = []
+#line = 0
+#accumulator = 0
+last_flipped = 0
+#history = []
 
-for i in range(0, len(boot_code)):
-    print('%s --------- %s' % (boot_code[i][1][:1], boot_code[i][1][1:]))
-
-while True:
-    print(f'{boot_code[line] = }')
-
-    if line in history:
-        print()
-        print()
-        print()
-        print()
-        print('***************')
-        print(f'{boot_code[line] = }')
-        print('***************')
-        print()
-        print()
-        print(f'{history = }')
-        print()
-
-        break
-
-    history.append(line)
-
-    if boot_code[line][0] == 'nop':
-        print('     nop')
-        line += 1
-    elif boot_code[line][0] == 'acc':
-        print('     acc')
-        if boot_code[line][1][:1] == '+':
-            print('+')
-            boot_code[line][2] += int(boot_code[line][1][1:])
-            accumulator += int(boot_code[line][1][1:])
-            line += 1
-        elif boot_code[line][1][:1] == '-':
-            print('-')
-            boot_code[line][2] -= int(boot_code[line][1][1:])
-            accumulator -= int(boot_code[line][1][1:])
-            line += 1
-        #boot_code[line][0][2]
-    elif boot_code[line][0] == 'jmp':
-        print('     jmp')
-        if boot_code[line][1][:1] == '+':
-            print('+')
-            line += int(boot_code[line][1][1:])
-        elif boot_code[line][1][:1] == '-':
-            print('-')
-            line -= int(boot_code[line][1][1:])
-
-    print(f'{boot_code[line-1] = }')
-    print('-----------------------------------')
-
-# Prints the whole boot_code list by line
 for i in range(0, len(boot_code)):
     print(f'{boot_code[i] = }')
 
+while True:
+    if instruction_loop(boot_code, last_flipped) == False:
+        last_flipped += 1
+    else:
+        print("You fixxed corrupted instruction")
+        print(instruction_loop(boot_code, last_flipped))
+        break
+
+#for i in range(0, len(boot_code)):
+    #print('%s --------- %s' % (boot_code[i][1][:1], boot_code[i][1][1:]))
+
+# Prints the whole boot_code list by line
+#for i in range(0, len(boot_code)):
+    #print(f'{boot_code[i] = }')
+
 #print(f'{boot_code = }')
 
-print(f'{accumulator = }')
-print()
+#print(f'{accumulator = }')
+#print()
 
 sys.exit()

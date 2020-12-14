@@ -38,32 +38,30 @@ After the last instruction (acc +6), the program terminates by attempting to run
 
 Fix the program so that it terminates normally by changing exactly one jmp (to nop) or nop (to jmp). What is the value of the accumulator after the program terminates?
 """
+
 import sys
 
-def instruction_loop(boot_code, last_flipped):
+def instruction_loop(boot_code, last_flipped): # TODO: come up with a better name for this function
 
     line = 0
     accumulator = 0
 
     history = []
 
-    while True:
+    debug_len_boot_code = len(boot_code)
+
+    while line < len(boot_code) and line > -1:
     #print(f'{boot_code[line] = }')
         if line in history:
-            print('***************')
-            print()
-            print(f'{line = }')
-            print()
-            print('***************')
+            print(f'{accumulator = }')
             return False
-        elif line > len(boot_code):
-            print('%s was the list line to be flipped' % last_flipped)
-            return accumulator
-        elif line == 0:
-            print()
-            print('Current line that is being fliped is %s' % last_flipped)
+        #elif line == 0:
+            #print()
+            #print('Current line that is being fliped is %s' % last_flipped)
 
         history.append(line)
+
+        #print('%s ------------- %s' % (line, last_flipped))
 
         if line != last_flipped:
             if boot_code[line][0] == 'nop':
@@ -82,7 +80,8 @@ def instruction_loop(boot_code, last_flipped):
                     line += int(boot_code[line][1][1:])
                 elif boot_code[line][1][:1] == '-':
                     line -= int(boot_code[line][1][1:])
-                    
+        
+        # 'nop' and 'jmp' are reversed
         elif line == last_flipped:
             if boot_code[line][0] == 'nop':
                 line += 1
@@ -101,7 +100,9 @@ def instruction_loop(boot_code, last_flipped):
                 elif boot_code[line][1][:1] == '-':
                     line -= int(boot_code[line][1][1:])
 
-file1 = open('boot_code_sample_2.txt', 'r') 
+    return accumulator
+
+file1 = open('boot_code_sample.txt', 'r') 
 unsorted = file1.read().splitlines()
 file1.close()
 
@@ -116,6 +117,7 @@ for i in range(0, len(unsorted)):
 #accumulator = 0
 last_flipped = 0
 #history = []
+Flipped_history = []
 
 for i in range(0, len(boot_code)):
     print(f'{boot_code[i] = }')
@@ -126,8 +128,14 @@ while True:
     else:
         print("You fixxed corrupted instruction")
         print(instruction_loop(boot_code, last_flipped))
-        break
 
+        if last_flipped in Flipped_history or last_flipped > len(boot_code):
+            break
+
+        Flipped_history.append(last_flipped)
+        last_flipped += 1
+
+print(Flipped_history)
 #for i in range(0, len(boot_code)):
     #print('%s --------- %s' % (boot_code[i][1][:1], boot_code[i][1][1:]))
 
@@ -141,3 +149,10 @@ while True:
 #print()
 
 sys.exit()
+
+"""
+Tried:
+-198
+393 to low
+1754
+"""

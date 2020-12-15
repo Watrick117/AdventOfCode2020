@@ -67,7 +67,6 @@ def preamble_walkthru(cypher, start, end):
     for i in range(start, end):
         temp.append(cypher[i])
 
-
     for i in range(0, len(temp)):
         for j in range(0, len(temp)):
             if temp[i] != temp[j] and int(temp[i]) + int(temp[j]) not in preamble:

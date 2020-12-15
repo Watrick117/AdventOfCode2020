@@ -52,14 +52,81 @@ In this example, after the 5-number preamble, almost every number is the sum of 
 The first step of attacking the weakness in the XMAS data is to find the first number in the list (after the preamble) which is not the sum of two of the 25 numbers before it. What is the first number that does not have this property?
 """
 
+def cyper_cracker(cypher, preamble_input):
+
+    debug_len_cypher = len(cypher)
+
+    # for i in range(0, len(preamble)):
+    #     print(preamble[i])
+
+    # for i in range(preamble_input, len(cypher)):
+    #     if cypher[i] not in preamble_walkthru(preamble):
+    #         print(f'{cypher[i] = }')
+
+    for i in range(0, len(cypher)):
+
+        debug_cypher_i = cypher[i]
+        debug_walkthru = preamble_walkthru(cypher, i, i + preamble_input)
+
+        if cypher[i] not in preamble_walkthru(cypher, i, i + preamble_input):
+            
+            print('------------------------------------------------------')
+            print(f'{cypher[i] = }')
+            print('------------------------------------------------------')
+
+    return True
+
+def preamble_walkthru(cypher, start, end):
+
+    temp = []
+    preamble = []
+
+    for i in range(start, end):
+        try:
+            temp.append(cypher[i])
+        except:
+            pass
+    
+    print(f'{temp = }')
+            
+
+    for i in range(0, len(temp)):
+
+        debug_i = i
+
+        for j in range(0, len(temp)):
+
+            debug_j = j
+
+            if temp[i] != temp[j] and int(temp[i]) + int(temp[j]) not in preamble:
+                preamble.append(int(temp[i]) + int(temp[j]))
+
+    print(f'{preamble = }')
+    print()
+
+    return preamble
+
 import sys
 
+# Takes in 'preamble_sample.txt' as cypher_sample
 file1 = open('preamble_sample.txt', 'r') 
-cypher = file1.read().splitlines()
+cypher_sample = file1.read().splitlines()
 file1.close()
 
-debug_len_cypher = len(cypher)
+# Takes in 'preamble.txt' as cypher
+file1 = open('preamble.txt', 'r') 
+cypher_puzzle = file1.read().splitlines()
+file1.close()
 
-for i in range(0, len(cypher)):
-    print(cypher[i])
+# for i in range(0, len(cypher)):
+#     print(cypher[i])
+
+print()
+print('cyper_sample')
+print(cyper_cracker(cypher_sample, 5))
+
+"""print()
+print('cyper')
+print(cyper_cracker(cypher, 25))"""
+
 sys.exit()

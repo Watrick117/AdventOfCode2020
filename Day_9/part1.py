@@ -54,27 +54,10 @@ The first step of attacking the weakness in the XMAS data is to find the first n
 
 def cyper_cracker(cypher, preamble_input):
 
-    debug_len_cypher = len(cypher)
+    for i in range(0, len(cypher)-preamble_input):
 
-    # for i in range(0, len(preamble)):
-    #     print(preamble[i])
-
-    # for i in range(preamble_input, len(cypher)):
-    #     if cypher[i] not in preamble_walkthru(preamble):
-    #         print(f'{cypher[i] = }')
-
-    for i in range(0, len(cypher)):
-
-        debug_cypher_i = cypher[i]
-        debug_walkthru = preamble_walkthru(cypher, i, i + preamble_input)
-
-        if cypher[i] not in preamble_walkthru(cypher, i, i + preamble_input):
-            
-            print('------------------------------------------------------')
-            print(f'{cypher[i] = }')
-            print('------------------------------------------------------')
-
-    return True
+        if int(cypher[i+preamble_input]) not in list(preamble_walkthru(cypher, i, i + preamble_input)):
+            print(cypher[i+preamble_input])
 
 def preamble_walkthru(cypher, start, end):
 
@@ -82,27 +65,13 @@ def preamble_walkthru(cypher, start, end):
     preamble = []
 
     for i in range(start, end):
-        try:
-            temp.append(cypher[i])
-        except:
-            pass
-    
-    print(f'{temp = }')
-            
+        temp.append(cypher[i])
+
 
     for i in range(0, len(temp)):
-
-        debug_i = i
-
         for j in range(0, len(temp)):
-
-            debug_j = j
-
             if temp[i] != temp[j] and int(temp[i]) + int(temp[j]) not in preamble:
                 preamble.append(int(temp[i]) + int(temp[j]))
-
-    print(f'{preamble = }')
-    print()
 
     return preamble
 
@@ -118,15 +87,12 @@ file1 = open('preamble.txt', 'r')
 cypher_puzzle = file1.read().splitlines()
 file1.close()
 
-# for i in range(0, len(cypher)):
-#     print(cypher[i])
-
 print()
 print('cyper_sample')
-print(cyper_cracker(cypher_sample, 5))
+cyper_cracker(cypher_sample, 5)
 
-"""print()
+print()
 print('cyper')
-print(cyper_cracker(cypher, 25))"""
+cyper_cracker(cypher_puzzle, 25)
 
 sys.exit()

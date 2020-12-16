@@ -34,6 +34,7 @@ To find the encryption weakness, add together the smallest and largest number in
 
 What is the encryption weakness in your XMAS-encrypted list of numbers?
 """
+
 def encryption_weakness(cypher, invalid_index):
 
     for i in range(0, invalid_index):
